@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <base href="<%=basePath%>">
+    <meta charset="utf-8"/>
+    <title>Lightning Talk</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
+    <meta name="google-signin-client_id" content="182180874200-vk2rq1ircnqu6s744pgmg2a93q9mmh7b.apps.googleusercontent.com">
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.3.15/angular.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="angular/auth.js"></script>
+    <style>
+        .left {
+            float:left;
+            width:400px;
+            height:100%;
+            position:absolute;
+            left:20px;
+            top:50px;
+        }
+        .right{
+            width:700px;
+            height:100%;
+            float:right;
+            background-color: black;
+            opacity: 0.8;
+            position:absolute;
+            left:590px;
+            top:50px;
+        }
+    </style>
+</head>
+<body ng-app="topicsApp">
+<div class="container" ng-controller="TopicsController">
+
+        <div id="leftC" class="left">
+            <div id="signin" class="g-signin2"></div>
+            <div class="row" align="left" style="text-align: center;"><h3 align="left"><b>&#8195;&#8195;&#8195;&#8195;Lightning Talk</b></h3></div>
+            <HR align=left width=600px color=#987cb9 SIZE=1>
+            <div class="row" align="left" style="text-align:left">&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8194;Title</div>
+            <div class="row" align="right"><input type="text" style="width: 340px" class="form-control input-sm" id="title" maxlength="80" ng-model="topics.title"></div>
+            <div class="row" align="right"><i id="errmsg"></i><i><font size="1">limit to 80 characters</font></i></div>
+
+            <div class="row" align="right"><div class="row" style="text-align:left">&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8194;Description</div><textarea rows="5" cols="5" style="width:340px;"  class="form-control input-sm" id ="description" maxlength="120" ng-model="topics.description"></textarea></div>
+            <div class="row" align="right"><i><font size="1">limit to 120 characters</font></i></div>
+            <input type="hidden" id="os" ng-model="topics.os">
+            <input type="hidden" id="browser" ng-model="topics.browser">
+            <input type="hidden" id="host" ng-model="topics.host">
+            <input type="hidden" id="createtime" ng-model="topics.createtime">
+            <input type="hidden" id="talktime" ng-model="topics.talktime">
+            <div class="row" align="left" style="text-align:left">&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;&#8194;Email</div>
+            <div class="row" align="right"><input type="text" style="width: 340px" class="form-control input-sm" id="email" maxlength="255" ng-model="topics.email"></div>
+            <div class="row" align="right"><i><font size="1">limit to 255 characters</font></i></div>
+            <div class="row" align="center">
+                <input type="button" id="btnU" align="center" style="width: 100px" class="btn btn-default" value="submit" ng-click="findByName()">
+                <input type="button" id="clear" align="center" style="width: 100px" class="btn btn-default" value="clear" ng-click="clear()">
+            </div>
+
+        </div>
+        <div class="right" id="rightc">
+
+            <div class="container" style="background-color:black;width:580px;height:90px;opacity:0.5;"><div class="row"><h3 style="text-align: left"><font color="white" align="left"><b>Topics</b></font></h3></div><div class="row"><div style="width:130px;float:left"><font color="white"><b>TITLE</b></font></div><div  style="width:450px;float:left"><font color="white"><b>DESCRIPTION</b></font></div></div></div>
+            <div class="container" style="background-color:black;width:580px;opacity:0.8;min-height:25px;border-radius: 3px;" ng-repeat="b in topicss" >
+                <div class="row">
+                    <div style="width:130px;float:left"><font color="white" size="5" title = "{{b.title}}"> {{b.title}} </font></div>
+                    <div  class="icoFontlist" style="width:450px;float:left"><font color="white" size="4" title = "{{b.description}}"> {{b.description}}</font></div>
+                </div>
+                <div class="container" style="background-color: black;width: 580px;min-height:10px;opacity: 0.5;align:right;">
+                    <div class="row">
+                        <div id="os"><font color="white" align="right">Os:{{b.os}}&#8195;&#8195;Ip:{{b.ipaddr}}&#8195;&#8195;Host:{{b.host}}&#8195;&#8195;Browser:{{b.browser}}  </font></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+    var bookApp = angular.module("topicsApp", []);
+    var existed = true;
+    bookApp.controller("TopicsController", ['$scope', '$http', '$window', function($scope, $http, $window) {
+        $window.appStart = function() {
+            console.log('appStart()');
+            gapi.load('auth2', initSigninV2);
+        };
+        $scope.topicss = [];
+        $scope.save = function() {
+                $http({
+                    url: "http://127.0.0.1:3001/topics/topic",
+                    data: $scope.topics,
+                    method: "POST"
+                }).success(function (data, status, headers, config) {
+                    $scope.topicss.push(data);
+                    var msg1 = document.getElementById("errmsg");
+                    msg1.innerText = "";
+                }).error(function (data, status, headers, config) {
+                        alert(status);
+                    });
+        };
+
+        $scope.findByName = function(){
+            $http({
+                url: "http://127.0.0.1:3001/topics/title",
+                params: {"title": $scope.topics.title},
+                method: "GET"
+            }).success(function(data, status, headers, config){
+                var rlt = JSON.stringify(data);
+                if(rlt == null || rlt == "[]"){
+                    $scope.save();
+                }else{
+                    var msg1 = document.getElementById("errmsg");
+                    var text ='<font color="red"> topics should be unique</font>';
+                    msg1.innerHTML += text;
+                }
+            }).error(function(data, status, headers, config){
+
+            });
+        };
+
+        $scope.edit = function(b) {
+            $scope.topics = b;
+        };
+        $scope.clear = function() {
+            $scope.topics = {};
+        };
+
+        $http.get("http://127.0.0.1:3001/")
+            .success(function(data, status, headers, config) {
+                $scope.topicss = data;
+            })
+            .error(function(data, status, headers, config) {
+                alert(status);
+            });
+
+
+    }]);
+
+</script>
+</div>
+
+</body>
+</html>
