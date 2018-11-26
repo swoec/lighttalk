@@ -132,6 +132,8 @@
         };
         $scope.clear = function() {
             $scope.topics = {};
+            var msg1 = document.getElementById("errmsg");
+            msg1.innerText = "";
         };
 
         $http.get("http://127.0.0.1:3001/")
