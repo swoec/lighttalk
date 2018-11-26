@@ -1,31 +1,30 @@
+var app = angular.module('topicsApp', []);
 
-var app = angular.module('topicsApp',[]);
+app.controller('TopicsController', function ($scope, $window) {
 
-app.controller('TopicsController', function($scope, $window) {
-    
     var auth2;
-    
+
     $scope.topics = {};
 
-    $window.appStart = function() {
+    $window.appStart = function () {
         console.log('appStart()');
         gapi.load('auth2', initSigninV2);
     };
 
-    var initSigninV2 = function() {
+    var initSigninV2 = function () {
         console.log('initSigninV2()');
         auth2 = gapi.auth2.getAuthInstance();
         auth2.isSignedIn.listen(signinChanged);
         auth2.currentUser.listen(userChanged);
 
-        if(auth2.isSignedIn.get() == true) {
+        if (auth2.isSignedIn.get() == true) {
             auth2.signIn();
         }
     };
 
-    var signinChanged = function(isSignedIn) {
+    var signinChanged = function (isSignedIn) {
         console.log('signinChanged() = ' + isSignedIn);
-        if(isSignedIn) {
+        if (isSignedIn) {
             console.log('the user must be signed in to print this');
             var googleUser = auth2.currentUser.get();
             var authResponse = googleUser.getAuthResponse();
@@ -41,21 +40,21 @@ app.controller('TopicsController', function($scope, $window) {
         }
     };
 
-    var userChanged = function(user) {
+    var userChanged = function (user) {
         console.log('userChanged()');
     };
-    
-    $scope.signOut = function() {
+
+    $scope.signOut = function () {
         console.log('signOut()');
-        auth2.signOut().then(function() {
-            signinChanged(false);    
+        auth2.signOut().then(function () {
+            signinChanged(false);
         });
         console.log(auth2);
     };
-    
-    $scope.disconnect = function() {
+
+    $scope.disconnect = function () {
         console.log('disconnect()');
-        auth2.disconnect().then(function() {
+        auth2.disconnect().then(function () {
             signinChanged(false);
         });
         console.log(auth2);

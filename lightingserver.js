@@ -1,4 +1,3 @@
-
 var express = require('express'),
     routes = require('./routes'),
     topics = require('./routes/talks'),
@@ -10,10 +9,10 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/home', function (req, res) {
-    res.sendFile( __dirname + "/" + "Lindex.html" );
+    res.sendFile(__dirname + "/" + "Lindex.html");
 });
 app.get('/', topics.list);
 
